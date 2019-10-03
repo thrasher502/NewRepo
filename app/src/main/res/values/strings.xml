@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AlertUsingBroadcastRec</string>
+    <string name="numberInput">1</string>
+    <string name="button1">Calc. square</string>
+    <string name="act1TextV1">Square of input</string>
+    <string name="alertMessage">The square of the input is: %s</string>
+    <string name="dialogConfirmation">Do you really wanna calculate?</string>
+    <string name="butPositive">SET TEXT</string>
+    <string name="butNegative">Cancel</string>
+</resources>

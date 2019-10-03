@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_shape"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialogTextView"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/butNegative"
+            android:background="@color/colorAccent"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/butNegative"
+            android:textColor="#ffffff"/>
+
+        <Button
+            android:id="@+id/butPositive"
+            android:background="@color/colorPrimary"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/butPositive"
+            android:textColor="#ffffff"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dialogTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/dialogConfirmation"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent" />
+    />
+
+</RelativeLayout>
