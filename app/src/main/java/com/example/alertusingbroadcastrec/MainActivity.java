@@ -11,24 +11,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.util.Log;
 
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity {
     private Button button;
+    FragmentManager fManager = getSupportFragmentManager();
     private EditText numberInput;
     private TextView act1TextV1;
     DialogBox dialogBox;
-    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Bundle b = intent.getExtras();
-            textViewSetter(b.getString("502"));
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +34,17 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogBox = new DialogBox(MainActivity.this, numberInput.getText().toString());
-                dialogBox.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialogBox.show();
+                dialogBox = new DialogBox();
+                dialogBox.setInput(numberInput.getText().toString());
+                dialogBox.show(fManager, null);
+                dialogBox.setOnPositiveClickListener(new OnPositiveClickListener() {
+                    @Override
+                    public void setText(String text) {
+                        act1TextV1.setText(text);
+                    }
+                });
             }
         });
-        registerReceiver(broadcastReceiver, new IntentFilter("customBoxReceiver"));
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (broadcastReceiver != null)
-            unregisterReceiver(broadcastReceiver);
-    }
-
-    public void textViewSetter(String text) {
-        this.act1TextV1.setText(text);
     }
 }
+
