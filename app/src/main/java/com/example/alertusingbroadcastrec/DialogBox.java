@@ -20,58 +20,60 @@ interface OnPositiveClickListener {
 }
 
 public class DialogBox extends DialogFragment {
-    private Double calculatedNumber;
+
     private OnPositiveClickListener onPositiveClickListener;
     private Button butNegative, butPositive;
-    private String input;
+    private String inputNumber;
+    private String outputNumber;
 
-    void setOnPositiveClickListener(OnPositiveClickListener onPositiveClickListener) {
-        this.onPositiveClickListener = onPositiveClickListener;
+    DialogBox(String inputNumber) {
+        this.inputNumber = inputNumber;
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        View dialogView = layoutInflater.inflate(R.layout.dialog_layout, null);
-        builder.setView(dialogView);
-        butNegative = (Button) dialogView.findViewById(R.id.butNegative);
-        butPositive = (Button) dialogView.findViewById(R.id.butPositive);
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View diagView = inflater.inflate(R.layout.dialog_layout, null);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        dialogBuilder.setView(diagView);
+        butPositive = (Button)diagView.findViewById(R.id.butPositive);
+        butNegative = (Button)diagView.findViewById(R.id.butNegative);
 
-        final AlertDialog alertDialog = builder.create();
-        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        butPositive.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calculateNumber(input);
-                Toast.makeText(getContext(), "Result set", Toast.LENGTH_SHORT).show();
-
-                if (onPositiveClickListener != null)
-                    onPositiveClickListener.setText(calculatedNumber.toString());
-                dismiss();
-            }
-        });
 
         butNegative.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "CANCELLED", Toast.LENGTH_SHORT).show();
                 dismiss();
             }
         });
 
-        return alertDialog;
+        butPositive.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                outputCalculator(inputNumber);
+                if (onPositiveClickListener != null)
+                    onPositiveClickListener.setText(outputNumber);
+                Toast.makeText(getContext(), "Text set !", Toast.LENGTH_SHORT).show();
+                dismiss();
+            }
+        });
+
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        return dialog;
     }
 
-    public void setInput(String input) {
-        this.input = input;
+    public void outputCalculator(String inputNumber) {
+        Double x = Math.pow(Double.parseDouble(inputNumber), 2);
+        outputNumber = x.toString();
     }
 
-    private Double calculateNumber(String numberInput) {
-        Double input = Double.parseDouble(numberInput);
-        calculatedNumber = Math.pow(input, 2);
-        return calculatedNumber;
+    public void setOnPositiveClickListener(OnPositiveClickListener onPositiveClickListener) {
+        this.onPositiveClickListener = onPositiveClickListener;
+
+
     }
 }
