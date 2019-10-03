@@ -38,9 +38,8 @@ public class DialogBox extends DialogFragment {
         View diagView = inflater.inflate(R.layout.dialog_layout, null);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         dialogBuilder.setView(diagView);
-        butPositive = (Button)diagView.findViewById(R.id.butPositive);
-        butNegative = (Button)diagView.findViewById(R.id.butNegative);
-
+        butPositive = (Button) diagView.findViewById(R.id.butPositive);
+        butNegative = (Button) diagView.findViewById(R.id.butNegative);
 
         butNegative.setOnClickListener(new OnClickListener() {
             @Override
